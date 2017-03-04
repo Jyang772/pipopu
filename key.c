@@ -8,7 +8,10 @@
 #include <termios.h>
 #include <sys/ioctl.h>
 
+
 static sig_atomic_t end = 0;
+
+static int firstReleased = 0;
 
 static void sighandler(int signo)
 {
@@ -17,6 +20,7 @@ static void sighandler(int signo)
 
 int main()
 {
+
     struct termios oldtio, curtio;
     struct sigaction sa;
 
@@ -59,6 +63,7 @@ int main()
                     printf("Data available\n");
                     read(0, &c, 1);
 		    //printf("%c\n",c);
+ 
 		    switch(c) {
                         case 'w':
                                 printf("Moving forward\n");
@@ -79,7 +84,6 @@ int main()
                         default:
                                 break;
                     }
-
             }
 	if(flag)
 		break;
